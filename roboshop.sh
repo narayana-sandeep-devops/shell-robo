@@ -14,42 +14,42 @@ do
         --query 'Instances[0].InstanceId' \
         --output text )
 
-        if [ $instance == "frontend" ]; then
-            IP=$(
-            aws ec2 describe-instances \
-                --instance-ids $INSTANCE_ID \
-                --query 'Reservations[].Instances[].PublicIpAddress' \
-                --output text
-            )            
-        else
-            IP=$(
-            aws ec2 describe-instances \
-                --instance-ids $INSTANCE_ID \
-                --query 'Reservations[].Instances[].PrivateIpAddress' \
-                --output text
-            )
-            RECORD_NAME="$instance.$DOMAIN_NAME" #ex:mongo
-        fi
-        echo "IP Address: $IP"
+    if [ $instance == "frontend" ]; then
+        IP=$(
+        aws ec2 describe-instances \
+            --instance-ids $INSTANCE_ID \
+            --query 'Reservations[].Instances[].PublicIpAddress' \
+            --output text
+        )            
+    else
+        IP=$(
+        aws ec2 describe-instances \
+            --instance-ids $INSTANCE_ID \
+            --query 'Reservations[].Instances[].PrivateIpAddress' \
+            --output text
+        )
+        RECORD_NAME="$instance.$DOMAIN_NAME" #ex:mongo
+    fi
+    echo "IP Address: $IP"
 
-        aws route53 list-resource-record-sets \
-        --hosted-zone-id <YOUR_HOSTED_ZONE_ID> \
-        --change-batch '
+    aws route53 list-resource-record-sets \
+    --hosted-zone-id <YOUR_HOSTED_ZONE_ID> \
+    --change-batch '
+    {
+        "Comment": "Optional comment",
+        "Changes": [
             {
-                "Comment": "Optional comment",
-                "Changes": [
-                    {
-                        "Action": "UPSERT",
-                        "ResourceRecordSet": {
-                            "Name": "'$RECORD_NAME'",
-                            "Type": "A",
-                            "TTL": 1,
-                            "ResourceRecords": [
-                                { "Value": "$IP" }
-                            ]
-                        }
-                    }
-                ]
+                "Action": "UPSERT",
+                "ResourceRecordSet": {
+                    "Name": "'$RECORD_NAME'",
+                    "Type": "A",
+                    "TTL": 1,
+                    "ResourceRecords": [
+                        { "Value": "$IP" }
+                    ]
+                }
             }
-            echo "Record updated for isntance: $instance"
+        ]
+    }
+    echo "Record updated for isntance: $instance"
 done
