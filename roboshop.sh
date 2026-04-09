@@ -51,5 +51,7 @@ do
             }
         ]
     }
+    '
     echo "Record updated for isntance: $instance"
+
 done
