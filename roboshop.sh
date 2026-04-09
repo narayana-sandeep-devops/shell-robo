@@ -32,11 +32,11 @@ do
     fi
     echo "IP Address: $IP"
 
-    aws route53 list-resource-record-sets \
+    aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
     --change-batch '
     {
-        "Comment": "Optional comment",
+        "Comment": "Updating Recrod",
         "Changes": [
             {
                 "Action": "UPSERT",
