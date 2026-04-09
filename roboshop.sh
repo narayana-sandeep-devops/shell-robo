@@ -33,7 +33,7 @@ do
     echo "IP Address: $IP"
 
     aws route53 list-resource-record-sets \
-    --hosted-zone-id <YOUR_HOSTED_ZONE_ID> \
+    --hosted-zone-id $ZONE_ID \
     --change-batch '
     {
         "Comment": "Optional comment",
