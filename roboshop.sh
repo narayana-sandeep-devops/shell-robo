@@ -4,12 +4,14 @@ SG_ID="sg-0a28c2e9a030ff368"
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z02709693P5LDKOA75JSO"
 DOMAIN_NAME="sandeepinfo.online"
+SUBNET_ID="subnet-00cb815097e9622c0"
 for instance in $@
 do
     INSTANCE_ID=$( aws ec2 run-instances \
         --image-id $AMI_ID \
         --instance-type "t3.micro" \
         --security-group-ids $SG_ID \
+        --subnet-id $SUBNET_ID \
         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
         --query 'Instances[0].InstanceId' \
         --output text )
