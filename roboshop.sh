@@ -1,6 +1,6 @@
 #!/bin.bash
 
-SG_ID="sg-0c53fd79d4d2aa973"
+SG_ID="sg-0a28c2e9a030ff368"
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z02709693P5LDKOA75JSO"
 DOMAIN_NAME="sandeepinfo.online"
@@ -54,6 +54,5 @@ do
         ]
     }
     '
-    echo "Record updated for isntance: $instance"
-
+    echo "Record updated for instance: $instance"
 done
