@@ -1,11 +1,5 @@
 #!/bin/bsh
 
-
-
-
-echo "$R Hello, $G Iam Green $Y Learning $N DEVOPS"
-
-
 USERID=$(id -u)
 LOG_FOLDER="/var/log/shell-roboshop"
 LOG_FILE="$LOG_FOLDER/$0.log"
