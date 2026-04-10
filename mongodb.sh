@@ -35,11 +35,11 @@ VALIDATE $? "Installing MongoDB Server"
 systemctl enable mongod &>> $LOG_FILE
 VALIDATE $? "Enable MongoDB"
 
-Systemctl start mongod $>> $LOG_FILE
+systemctl start mongod $>> $LOG_FILE
 VALIDATE $? "MongoDB started"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 VALIDATE $? "Allowing remote connections"
 
-system restart mongod &>> $LOG_FILE
+systemctl restart mongod &>> $LOG_FILE
 VALIDATE $? "MongoDB Restarted"
